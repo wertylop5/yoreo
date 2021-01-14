@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-	"type-check": "tsc --noEmit",
+    "type-check": "tsc --noEmit",
     "build": "npm run type-check && webpack",
     "start": "babel-node -x \".ts\" src/server/index.ts"
   },
