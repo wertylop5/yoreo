@@ -1,5 +1,8 @@
-node_modules/
+# generated
 dist/
+src/server/dist
+
+node_modules/
 package-lock.json
 *.swp
 *~

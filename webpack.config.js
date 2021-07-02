@@ -28,19 +28,19 @@ module.exports = {
 		extensions: ['.tsx', '.ts', '.js'],
 	},
 	output: {
-		path: path.resolve(__dirname, 'dist'),
+		path: path.resolve(__dirname, 'src/server/dist'),
 		filename: '[name].bundle.js'
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
 			template: 'src/client/index.html',
 			chunks: ["root"],
-			filename: path.resolve(__dirname, 'dist/index.html'),
+			filename: path.resolve(__dirname, 'src/server/dist/index.html'),
 		}),
 		new HtmlWebpackPlugin({
 			template: 'src/client/index.html',
 			chunks: ["pageOne"],
-			filename: path.resolve(__dirname, 'dist/pageOne.html'),
+			filename: path.resolve(__dirname, 'src/server/dist/pageOne.html'),
 		})
 	]
 };
