@@ -1,10 +1,16 @@
 # generated
 dist/
 src/server/dist
-
-node_modules/
+yoreo
 package-lock.json
+
+# packages
+node_modules/
+
+# temp files
 *.swp
 *~
+
+# db files
 *.db
 

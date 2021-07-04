@@ -7,9 +7,12 @@ import (
 
 func CreateRoutine(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("CreateRoutine")
+	values := r.URL.Query()
 
-	db := OpenDb()
-	CreateTable(db)
+	fmt.Println(values)
+
+	db := OpenDb("./temp.db")
+	InitTables(db)
 
 	w.Write([]byte{})
 }

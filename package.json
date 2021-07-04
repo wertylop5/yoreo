@@ -6,8 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "type-check": "tsc --noEmit",
-    "build": "npm run type-check && webpack",
-    "start": "babel-node -x \".ts\" src/server/index.ts"
+    "build": "npm run build-client && npm run build-server",
+    "start": "cd ./src/server && go run main.go",
+	"build-client": "npm run type-check && webpack",
+	"build-server": "cd ./src/server && go build"
   },
   "repository": {
     "type": "git",
