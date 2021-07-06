@@ -8,8 +8,8 @@
     "type-check": "tsc --noEmit",
     "build": "npm run build-client && npm run build-server",
     "start": "cd ./src/server && go run main.go",
-	"build-client": "npm run type-check && webpack",
-	"build-server": "cd ./src/server && go build"
+    "build-client": "npm run type-check && webpack",
+    "build-server": "cd ./src/server && go build"
   },
   "repository": {
     "type": "git",
@@ -33,6 +33,7 @@
     "@types/node": "^14.14.20",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "@types/react-redux": "^7.1.16",
     "babel-loader": "^8.2.2",
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0",
@@ -47,6 +48,7 @@
     "express": "^4.17.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-redux": "^7.2.4",
     "util": "^0.12.3"
   }
 }

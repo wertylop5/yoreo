@@ -13,6 +13,7 @@ func CreateRoutine(w http.ResponseWriter, r *http.Request) {
 
 	db := OpenDb("./temp.db")
 	InitTables(db)
+	AddUser(db, "test")
 
 	w.Write([]byte{})
 }

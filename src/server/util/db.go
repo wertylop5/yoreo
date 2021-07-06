@@ -33,35 +33,35 @@ func InitTables(db *sql.DB) {
 	queries := []string{
 		`
 		CREATE TABLE IF NOT EXISTS Routines(
-			id INT PRIMARY KEY,
+			id INTEGER PRIMARY KEY NOT NULL,
 			name TEXT,
-			owner_id INT,
-			collaborator_list INT,
+			owner_id INTEGER,
+			collaborator_list INTEGER,
 			data TEXT
 		);
 		`,
 		`
 		CREATE TABLE IF NOT EXISTS CollaboratorLists(
-			id INT PRIMARY KEY,
-			routine_id INT
+			id INTEGER PRIMARY KEY NOT NULL,
+			routine_id INTEGER
 		);
 		`,
 		`
 		CREATE TABLE IF NOT EXISTS Collaborators(
-			user_id INT,
-			collaborator_list_id INT,
-			permission_level_id INT
+			user_id INTEGER,
+			collaborator_list_id INTEGER,
+			permission_level_id INTEGER
 		);
 		`,
 		`
 		CREATE TABLE IF NOT EXISTS Users(
-			id INT PRIMARY KEY,
+			id INTEGER PRIMARY KEY NOT NULL,
 			name TEXT
 		);
 		`,
 		`
 		CREATE TABLE IF NOT EXISTS PerimissionLevels(
-			id INT PRIMARY KEY,
+			id INTEGER PRIMARY KEY NOT NULL,
 			description TEXT
 		);
 		`,
@@ -80,9 +80,7 @@ func CloseDb(db *sql.DB) {
 // AddUser adds a new user to the db with the specified name
 func AddUser(db *sql.DB, name string) error {
 	query := `
-		INSERT INTO Users VALUES(
-			%s
-		);
+		INSERT INTO Users(name) VALUES(?);
 	`
 	_, err := db.Exec(query, name)
 
