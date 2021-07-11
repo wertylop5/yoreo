@@ -3,6 +3,10 @@ import {
 	createEntityAdapter
 } from '@reduxjs/toolkit'
 
+import type {
+	RootState
+} from '../../app/store'
+
 enum RoutineFetchStatus {
 	Idle = "IDLE",
 	Fetching = "FETCHING",
@@ -10,7 +14,7 @@ enum RoutineFetchStatus {
 	Fail = "FAIL"
 }
 
-type RoutineState = {
+type RoutineFetchState = {
 	fetchStatus: RoutineFetchStatus,
 }
 
@@ -22,7 +26,7 @@ type Routine = {
 	data: string,
 }
 
-const initial: RoutineState = {
+const initial: RoutineFetchState = {
 	fetchStatus: RoutineFetchStatus.Idle
 }
 
@@ -37,4 +41,10 @@ const routinesSlice = createSlice({
 })
 
 export default routinesSlice.reducer
+
+export const {
+	selectAll: selectAllRoutines,
+	selectById: selectRoutineById,
+	selectIds: selectRoutineIds
+} = routinesAdapter.getSelectors((state: RootState) => state.routines)
 
