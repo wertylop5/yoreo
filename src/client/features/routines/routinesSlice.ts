@@ -7,6 +7,10 @@ import type {
 	RootState
 } from '../../app/store'
 
+import type {
+	Routine
+} from '../../types/types'
+
 enum RoutineFetchStatus {
 	Idle = "IDLE",
 	Fetching = "FETCHING",
@@ -16,14 +20,6 @@ enum RoutineFetchStatus {
 
 type RoutineFetchState = {
 	fetchStatus: RoutineFetchStatus,
-}
-
-type Routine = {
-	id: number,
-	name: string,
-	owner: number,
-	collaborators: any,
-	data: string,
 }
 
 const initial: RoutineFetchState = {

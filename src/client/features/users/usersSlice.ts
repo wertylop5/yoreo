@@ -1,11 +1,17 @@
 import {
+	createAsyncThunk,
+	createEntityAdapter,
 	createSlice,
-	createEntityAdapter
+	PayloadAction
 } from '@reduxjs/toolkit'
 
 import type {
 	RootState
 } from '../../app/store'
+
+import type {
+	User
+} from '../../types/types'
 
 enum UserFetchStatus {
 	Idle = "IDLE",
@@ -18,9 +24,8 @@ type UserFetchState = {
 	fetchStatus: UserFetchStatus
 }
 
-type User = {
-	id: number,
-	name: string
+type CreateUserPayload = {
+	name: string,
 }
 
 const initial: UserFetchState = {
@@ -31,10 +36,20 @@ const usersAdapter = createEntityAdapter<User>()
 
 const initialState = usersAdapter.getInitialState(initial)
 
+export const createUser = createAsyncThunk('users/createUser', async (name: string) => {
+	const response = await fetch("/user/create", { method: "POST" })
+})
+
 const usersSlice = createSlice({
 	name: 'users',
 	initialState,
-	reducers: {}
+	reducers: {},
+	extraReducers: (builder) => {
+		builder
+			.addCase(createUser.pending, (state, action) => {})
+			.addCase(createUser.fulfilled, (state, action) => {})
+			.addCase(createUser.rejected, (state, action) => {})
+	}
 })
 
 export default usersSlice.reducer
