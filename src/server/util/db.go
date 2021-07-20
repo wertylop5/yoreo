@@ -91,6 +91,24 @@ func AddUser(db *sql.DB, name string) error {
 	return err
 }
 
+// Returns the first result that matches the name. If no results, returns the error
+func GetUserByName(db *sql.DB, name string) (User, error) {
+	rows, err := db.Query("SELECT * from Users WHERE name = ?", name)
+
+	if err != nil {
+	}
+
+	for rows.Next() {
+		var id *int
+		var name *string
+		rows.Scan(id, name)
+
+		return User{*id, *name}, nil
+	}
+
+	return User{}, rows.Err()
+}
+
 // initTable runs the supplied query using the supplied db
 func initTable(db *sql.DB, query string) error {
 	_, err := db.Exec(query)

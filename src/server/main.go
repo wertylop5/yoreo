@@ -14,12 +14,12 @@ func main() {
 	fileserv := http.FileServer(http.FileSystem(http.Dir("./dist")))
 
 	http.Handle("/", http.StripPrefix("/", fileserv))
-	http.HandleFunc("/routine/create", util.CreateRoutine)
-	http.HandleFunc("/routine/load", util.LoadRoutine)
-	http.HandleFunc("/routine/save", util.SaveRoutine)
+	http.HandleFunc("/routine/create/", util.CreateRoutine)
+	http.HandleFunc("/routine/load/", util.LoadRoutine)
+	http.HandleFunc("/routine/save/", util.SaveRoutine)
 
-	http.HandleFunc("/user/create", nil)
-	http.HandleFunc("/user/get", nil)
+	http.HandleFunc("/user/create/", nil)
+	http.HandleFunc("/user/get/", nil)
 
 	fmt.Printf("listening on %s\n", server)
 	http.ListenAndServe(server, nil)
