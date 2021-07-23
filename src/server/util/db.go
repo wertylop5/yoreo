@@ -99,11 +99,11 @@ func GetUserByName(db *sql.DB, name string) (User, error) {
 	}
 
 	for rows.Next() {
-		var id *int
-		var name *string
-		rows.Scan(id, name)
+		var id int
+		var name string
+		rows.Scan(&id, &name)
 
-		return User{*id, *name}, nil
+		return User{id, name}, nil
 	}
 
 	return User{}, rows.Err()
