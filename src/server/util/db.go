@@ -7,29 +7,50 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
+var db *sql.DB
+
+// InitDb creates a database instance. Should be called before using any database util function
+func InitDb(dbFile string) error {
+	var err error
+	if db == nil {
+		db, err = openDb(dbFile)
+	} else {
+		fmt.Println("db already initialized")
+		return nil
+	}
+
+	if err != nil {
+	}
+	return err
+}
+
 // OpenDb opens a database using the supplied file and returns the database object
-func OpenDb(dbFile string) *sql.DB {
+func openDb(dbFile string) (*sql.DB, error) {
 	db, err := sql.Open("sqlite3", dbFile)
 
 	if err != nil {
 		fmt.Printf("error opening db: %s\n", err.Error())
-		return nil
+		return nil, err
 	}
 
 	err = db.Ping()
 
 	if err != nil {
 		fmt.Println("couldn't ping db")
-		return nil
+		return nil, err
 	} else {
 		fmt.Println("pinged")
 	}
 
-	return db
+	return db, nil
 }
 
 // InitTables creates tables in the db if they aren't already created
-func InitTables(db *sql.DB) {
+func InitTables() {
+	initTables(db)
+}
+
+func initTables(db *sql.DB) {
 	queries := []string{
 		`
 		CREATE TABLE IF NOT EXISTS Routines(
@@ -78,7 +99,11 @@ func CloseDb(db *sql.DB) {
 }
 
 // AddUser adds a new user to the db with the specified name
-func AddUser(db *sql.DB, name string) error {
+func AddUser(name string) {
+	addUser(db, name)
+}
+
+func addUser(db *sql.DB, name string) error {
 	query := `
 		INSERT INTO Users(name) VALUES(?);
 	`
@@ -92,7 +117,11 @@ func AddUser(db *sql.DB, name string) error {
 }
 
 // Returns the first result that matches the name. If no results, returns the error
-func GetUserByName(db *sql.DB, name string) (User, error) {
+func GetUserByName(name string) (User, error) {
+	return getUserByName(db, name)
+}
+
+func getUserByName(db *sql.DB, name string) (User, error) {
 	rows, err := db.Query("SELECT * from Users WHERE name = ?", name)
 
 	if err != nil {

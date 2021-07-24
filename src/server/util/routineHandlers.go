@@ -11,11 +11,7 @@ func CreateRoutine(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println(values)
 
-	db := OpenDb("./temp.db")
-	defer CloseDb(db)
-
-	InitTables(db)
-	AddUser(db, "test")
+	AddUser("test")
 
 	w.Write([]byte{})
 }
@@ -33,12 +29,11 @@ func SaveRoutine(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetUser(w http.ResponseWriter, r *http.Request) {
-	db := OpenDb("./temp.db")
 	query := r.URL.Query()
 	fmt.Println(query.Encode())
 	name := query.Get("user")
 
-	user, err := GetUserByName(db, name)
+	user, err := GetUserByName(name)
 
 	if err != nil {
 		w.WriteHeader(500)

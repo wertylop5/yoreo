@@ -13,6 +13,12 @@ func main() {
 	server := fmt.Sprintf("%s:%d", host, port)
 	fileserv := http.FileServer(http.FileSystem(http.Dir("./dist")))
 
+	err := util.InitDb("./temp.db")
+	if err != nil {
+		panic(fmt.Sprintf("couldn't initialize db: %s\n", err.Error()))
+	}
+	util.InitTables()
+
 	http.Handle("/", http.StripPrefix("/", fileserv))
 	http.HandleFunc("/routine/create", util.CreateRoutine)
 	http.HandleFunc("/routine/load", util.LoadRoutine)
