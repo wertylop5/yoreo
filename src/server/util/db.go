@@ -46,11 +46,11 @@ func openDb(dbFile string) (*sql.DB, error) {
 }
 
 // InitTables creates tables in the db if they aren't already created
-func InitTables() {
-	initTables(db)
+func InitTables() error {
+	return initTables(db)
 }
 
-func initTables(db *sql.DB) {
+func initTables(db *sql.DB) error {
 	queries := []string{
 		`
 		CREATE TABLE IF NOT EXISTS Routines(
@@ -88,19 +88,26 @@ func initTables(db *sql.DB) {
 		`,
 	}
 
+	var err error
 	for _, query := range queries {
-		initTable(db, query)
+		err = initTable(db, query)
+		if err != nil {
+			return err
+		}
 	}
+
+	return nil
 }
 
 // CloseDb closes the passed in db
-func CloseDb(db *sql.DB) {
-	db.Close()
+func CloseDb(db *sql.DB) error {
+	err := db.Close()
+	return err
 }
 
 // AddUser adds a new user to the db with the specified name
-func AddUser(name string) {
-	addUser(db, name)
+func AddUser(name string) error {
+	return addUser(db, name)
 }
 
 func addUser(db *sql.DB, name string) error {
