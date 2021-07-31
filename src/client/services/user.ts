@@ -11,7 +11,7 @@ export const userApi = createApi({
 	}),
 	endpoints: (builder) => ({
 		getUserByName: builder.query<User, string>({
-			query: (name) => `get/${name}`
+			query: (name) => `get/?name=${name}`
 		}),
 		createUser: builder.mutation<User, Partial<User>>({
 			query: ({ name }) => ({
@@ -27,6 +27,7 @@ export const userApi = createApi({
 })
 
 export const {
-	useGetUserByNameQuery
+	useGetUserByNameQuery,
+	useCreateUserMutation,
 } = userApi
 
